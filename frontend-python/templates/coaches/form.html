@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ 'Edit' if coach else 'New' }} Coach</h2>
+<form method="post">
+  <label>Name:
+    <input type="text" name="fullName"
+           value="{{ coach.fullName if coach else '' }}" required>
+  </label>
+  <label>Specialty:
+    <input type="text" name="specialty"
+           value="{{ coach.specialty if coach else '' }}">
+  </label>
+  <label>Experience (years):
+    <input type="number" name="experienceYears"
+           value="{{ coach.experienceYears if coach else '' }}">
+  </label>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Players</h2>
+<a href="{{ url_for('players_new') }}">Add Player</a>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th><th>Name</th><th>Age</th><th>Role</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for p in players %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.fullName }}</td>
+      <td>{{ p.age }}</td>
+      <td>{{ p.role }}</td>
+      <td>
+        <a href="{{ url_for('players_edit', player_id=p.id) }}">Edit</a>
+        <form action="{{ url_for('players_delete', player_id=p.id) }}"
+              method="post" style="display:inline">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

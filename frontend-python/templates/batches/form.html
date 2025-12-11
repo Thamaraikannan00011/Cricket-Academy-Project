@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ 'Edit' if batch else 'New' }} Batch</h2>
+<form method="post">
+  <label>Name:
+    <input type="text" name="name"
+           value="{{ batch.name if batch else '' }}" required>
+  </label>
+  <label>Level:
+    <input type="text" name="level"
+           value="{{ batch.level if batch else '' }}">
+  </label>
+  <label>Start time:
+    <input type="time" name="startTime"
+           value="{{ batch.startTime if batch else '' }}">
+  </label>
+  <label>End time:
+    <input type="time" name="endTime"
+           value="{{ batch.endTime if batch else '' }}">
+  </label>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}

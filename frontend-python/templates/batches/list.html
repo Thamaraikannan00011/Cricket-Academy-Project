@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Batches</h2>
+<a href="{{ url_for('batches_new') }}">Add Batch</a>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Level</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for b in batches %}
+    <tr>
+      <td>{{ b.id }}</td>
+      <td>{{ b.name }}</td>
+      <td>{{ b.level }}</td>
+      <td>{{ b.startTime }}</td>
+      <td>{{ b.endTime }}</td>
+      <td>
+        <a href="{{ url_for('batches_edit', batch_id=b.id) }}">Edit</a>
+        <form action="{{ url_for('batches_delete', batch_id=b.id) }}"
+              method="post" style="display:inline">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

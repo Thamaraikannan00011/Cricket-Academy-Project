@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ 'Edit' if player else 'New' }} Player</h2>
+<form method="post">
+  <label>Name:
+    <input type="text" name="fullName" value="{{ player.fullName if player else '' }}" required>
+  </label>
+  <label>Age:
+    <input type="number" name="age" value="{{ player.age if player else '' }}">
+  </label>
+  <label>Role:
+    <select name="role">
+      {% for r in ['Batsman','Bowler','All-rounder','Keeper'] %}
+        <option value="{{ r }}" {% if player and player.role == r %}selected{% endif %}>{{ r }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <label>Batting Style:
+    <input type="text" name="battingStyle" value="{{ player.battingStyle if player else '' }}">
+  </label>
+  <label>Bowling Style:
+    <input type="text" name="bowlingStyle" value="{{ player.bowlingStyle if player else '' }}">
+  </label>
+  <button type="submit">Save</button>
+</form>
+{% endblock %}
