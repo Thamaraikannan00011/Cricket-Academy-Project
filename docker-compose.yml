@@ -9,21 +9,18 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
     ports:
-      - "50000:5432"
+      - "5433:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d cricket_academy"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+    networks:
+      - cricket-network
 
   backend:
-    image: thamaraikannans/backend:v1
+    image: thamaraikannans/cricket-backend:latest
+    build:
+      context: ./backend-springboot
+      dockerfile: Dockerfile
     container_name: cricket_backend
-    depends_on:
-      db:
-        condition: service_healthy
     environment:
       DATABASE_URL: jdbc:postgresql://db:5432/cricket_academy
       DATABASE_USERNAME: postgres
@@ -32,16 +29,29 @@ services:
       SHOW_SQL: "true"
     ports:
       - "8080:8080"
+    networks:
+      - cricket-network
+    depends_on:
+      - db
 
   frontend:
-    image: thamaraikannans/front:v1
+    image: thamaraikannans/cricket-frontend:latest
+    build: 
+      context: ./frontend-python
+      dockerfile: Dockerfile
     container_name: cricket_frontend
-    depends_on:
-      - backend
     environment:
       BACKEND_BASE_URL: http://backend:8080/api
     ports:
-      - "5000:5000"
+      - "12345:5000"
+    networks:
+      - cricket-network
+    depends_on:
+      - backend
 
 volumes:
   db-data:
+
+networks:
+  cricket-network:
+    driver: bridge

@@ -6,6 +6,7 @@ import com.example.cricketacademy.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -21,8 +22,12 @@ public class PlayerService {
     }
 
     public Player getById(Long id) {
-        return playerRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Player not found with id " + id));
+        Optional<Player> optional = playerRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new NotFoundException("Player not found with id " + id);
+        }
     }
 
     public Player create(Player player) {

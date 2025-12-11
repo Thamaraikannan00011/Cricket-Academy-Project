@@ -6,6 +6,7 @@ import com.example.cricketacademy.repository.BatchRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BatchService {
@@ -21,8 +22,12 @@ public class BatchService {
     }
 
     public Batch getById(Long id) {
-        return batchRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Batch not found with id " + id));
+        Optional<Batch> optional = batchRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new NotFoundException("Batch not found with id " + id);
+        }
     }
 
     public Batch create(Batch batch) {

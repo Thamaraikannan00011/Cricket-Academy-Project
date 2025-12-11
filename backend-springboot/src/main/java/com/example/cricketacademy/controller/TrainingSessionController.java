@@ -3,6 +3,7 @@ package com.example.cricketacademy.controller;
 import com.example.cricketacademy.entity.TrainingSession;
 import com.example.cricketacademy.service.TrainingSessionService;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +19,30 @@ public class TrainingSessionController {
     }
 
     @GetMapping
-    public List<TrainingSession> getAll() {
+    public @NonNull List<TrainingSession> getAll() {
         return sessionService.getAll();
     }
 
     @GetMapping("/{id}")
-    public TrainingSession getById(@PathVariable Long id) {
+    public @NonNull TrainingSession getById(@PathVariable @NonNull Long id) {
         return sessionService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TrainingSession create(@RequestBody TrainingSession session) {
+    public @NonNull TrainingSession create(@RequestBody @NonNull TrainingSession session) {
         return sessionService.create(session);
     }
 
     @PutMapping("/{id}")
-    public TrainingSession update(@PathVariable Long id, @RequestBody TrainingSession session) {
+    public @NonNull TrainingSession update(@PathVariable @NonNull Long id,
+                                           @RequestBody @NonNull TrainingSession session) {
         return sessionService.update(id, session);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable @NonNull Long id) {
         sessionService.delete(id);
     }
 }

@@ -1,16 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Batches</h2>
-<a href="{{ url_for('batches_new') }}">Add Batch</a>
-<table>
-  <thead>
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2>Batches</h2>
+  <a class="btn btn-primary" href="{{ url_for('batches_new') }}">Add Batch</a>
+</div>
+
+<table class="table table-striped table-bordered">
+  <thead class="thead-light">
     <tr>
       <th>ID</th>
       <th>Name</th>
       <th>Level</th>
-      <th>Start time</th>
-      <th>End time</th>
+      <th>Start</th>
+      <th>End</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -23,10 +26,11 @@
       <td>{{ b.startTime }}</td>
       <td>{{ b.endTime }}</td>
       <td>
-        <a href="{{ url_for('batches_edit', batch_id=b.id) }}">Edit</a>
+        <a class="btn btn-sm btn-outline-secondary"
+           href="{{ url_for('batches_edit', batch_id=b.id) }}">Edit</a>
         <form action="{{ url_for('batches_delete', batch_id=b.id) }}"
-              method="post" style="display:inline">
-          <button type="submit">Delete</button>
+              method="post" class="d-inline">
+          <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
         </form>
       </td>
     </tr>

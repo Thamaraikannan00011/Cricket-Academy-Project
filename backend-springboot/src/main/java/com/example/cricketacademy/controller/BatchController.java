@@ -3,6 +3,7 @@ package com.example.cricketacademy.controller;
 import com.example.cricketacademy.entity.Batch;
 import com.example.cricketacademy.service.BatchService;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,29 +19,30 @@ public class BatchController {
     }
 
     @GetMapping
-    public List<Batch> getAll() {
+    public @NonNull List<Batch> getAll() {
         return batchService.getAll();
     }
 
     @GetMapping("/{id}")
-    public Batch getById(@PathVariable Long id) {
+    public @NonNull Batch getById(@PathVariable @NonNull Long id) {
         return batchService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Batch create(@RequestBody Batch batch) {
+    public @NonNull Batch create(@RequestBody @NonNull Batch batch) {
         return batchService.create(batch);
     }
 
     @PutMapping("/{id}")
-    public Batch update(@PathVariable Long id, @RequestBody Batch batch) {
+    public @NonNull Batch update(@PathVariable @NonNull Long id,
+                                 @RequestBody @NonNull Batch batch) {
         return batchService.update(id, batch);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable @NonNull Long id) {
         batchService.delete(id);
     }
 }

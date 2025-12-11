@@ -6,6 +6,7 @@ import com.example.cricketacademy.repository.TrainingSessionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TrainingSessionService {
@@ -21,8 +22,12 @@ public class TrainingSessionService {
     }
 
     public TrainingSession getById(Long id) {
-        return sessionRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Session not found with id " + id));
+        Optional<TrainingSession> optional = sessionRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new NotFoundException("Session not found with id " + id);
+        }
     }
 
     public TrainingSession create(TrainingSession session) {

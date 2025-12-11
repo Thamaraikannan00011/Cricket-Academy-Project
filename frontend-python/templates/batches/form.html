@@ -2,23 +2,36 @@
 
 {% block content %}
 <h2>{{ 'Edit' if batch else 'New' }} Batch</h2>
-<form method="post">
-  <label>Name:
-    <input type="text" name="name"
-           value="{{ batch.name if batch else '' }}" required>
-  </label>
-  <label>Level:
-    <input type="text" name="level"
-           value="{{ batch.level if batch else '' }}">
-  </label>
-  <label>Start time:
-    <input type="time" name="startTime"
-           value="{{ batch.startTime if batch else '' }}">
-  </label>
-  <label>End time:
-    <input type="time" name="endTime"
-           value="{{ batch.endTime if batch else '' }}">
-  </label>
-  <button type="submit">Save</button>
+
+<form method="post" class="mt-3">
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name" name="name"
+             value="{{ batch.name if batch else '' }}" required>
+    </div>
+    <div class="form-group col-md-3">
+      <label for="level">Level</label>
+      <input type="text" class="form-control" id="level" name="level"
+             placeholder="Beginner, Intermediate, Advanced"
+             value="{{ batch.level if batch else '' }}">
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="startTime">Start time</label>
+      <input type="time" class="form-control" id="startTime" name="startTime"
+             value="{{ batch.startTime if batch else '' }}">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="endTime">End time</label>
+      <input type="time" class="form-control" id="endTime" name="endTime"
+             value="{{ batch.endTime if batch else '' }}">
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success">Save</button>
+  <a href="{{ url_for('batches_list') }}" class="btn btn-secondary">Cancel</a>
 </form>
 {% endblock %}
